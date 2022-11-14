@@ -4,9 +4,19 @@
 	box-sizing: border-box;
 }
 :root {
-	--main-bg: #ffffff;
+	--main-bg: #f9fafb;
+	--secondary-bg: #ffffff;
+	--aside-bg1: #111827;
+	--aside-bg2: #1f2937;
+	--aside-bg-active: #374151;
 
-	--main-text: #262626;
+	--main-text: #000000;
+	--secondary-text: #d1d5db;
+	--white-text: #ffffff;
+
+	--accent-color: #3f75ed;
+
+	--radius: 4px;
 }
 
 html,
