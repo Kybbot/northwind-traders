@@ -1,25 +1,47 @@
-import React, { FC, useEffect, useState } from "react";
+import React, { FC, useEffect, useRef, useState } from "react";
 import { Outlet, Link } from "react-router-dom";
 
 const MainLayout: FC = () => {
 	const [date, setDate] = useState(new Date());
-	const [isOpen, setOpen] = useState(false);
+	const [isOpenLinks, setOpenLinks] = useState(false);
+	const [isOpenAside, setOpenASide] = useState(false);
 
-	const btnHandler = () => {
-		setOpen((prev) => !prev);
+	const asideRef = useRef<HTMLDivElement>(null);
+
+	const linksBtnHandler = () => {
+		setOpenLinks((prev) => !prev);
+	};
+
+	const asideBtnHandler = () => {
+		setOpenASide((prev) => !prev);
 	};
 
 	useEffect(() => {
+		const clickOutside = (event: Event) => {
+			if (
+				event.target === asideRef.current &&
+				asideRef.current &&
+				asideRef.current.className === "aside aside--active"
+			) {
+				setOpenASide(false);
+			}
+		};
+
+		window.addEventListener("click", clickOutside);
+
 		const timerId = setInterval(() => {
 			setDate(new Date());
 		}, 1000);
 
-		return () => clearInterval(timerId);
+		return () => {
+			clearInterval(timerId);
+			window.removeEventListener("click", clickOutside);
+		};
 	}, []);
 
 	return (
 		<div className="container">
-			<aside className="aside">
+			<aside ref={asideRef} className={`aside ${isOpenAside ? "aside--active" : ""}`}>
 				<section className="aside__container">
 					<header className="aside__header">
 						<h1 className="aside__titel">
@@ -102,7 +124,12 @@ const MainLayout: FC = () => {
 			</aside>
 			<header className="header">
 				<div className="header__clock">{date.toLocaleTimeString()}</div>
-				<button className={`header__button ${isOpen ? "header__button--active" : ""}`} onClick={btnHandler}>
+				<button className="headerr__menu" aria-label="Open navigation" onClick={asideBtnHandler}>
+					<svg width="24" height="24">
+						<use xlinkHref="/icons.svg#menu" />
+					</svg>
+				</button>
+				<button className={`header__button ${isOpenLinks ? "header__button--active" : ""}`} onClick={linksBtnHandler}>
 					<svg width="24" height="24">
 						<use xlinkHref="/icons.svg#menu" />
 					</svg>
@@ -111,20 +138,30 @@ const MainLayout: FC = () => {
 						<use xlinkHref="/icons.svg#arrow-down" />
 					</svg>
 				</button>
-				<div className={`header__links ${isOpen ? "header__links--active" : ""}`}>
-					<a href="https://blog.cloudflare.com/introducing-d1" className="header__link">
+				<div className={`header__links ${isOpenLinks ? "header__links--active" : ""}`}>
+					<a
+						href="https://blog.cloudflare.com/introducing-d1"
+						target="_blank"
+						rel="noreferrer noopener"
+						className="header__link"
+					>
 						<svg width="24" height="24">
 							<use xlinkHref="/icons.svg#link" />
 						</svg>
 						Introducing D1
 					</a>
-					<a href="https://www.sqlite.org/lang.html" className="header__link">
+					<a href="https://www.sqlite.org/lang.html" target="_blank" rel="noreferrer noopener" className="header__link">
 						<svg width="24" height="24">
 							<use xlinkHref="/icons.svg#link" />
 						</svg>
 						SQLite SQL Flavour
 					</a>
-					<a href="https://developers.cloudflare.com/workers/learning/using-durable-objects/" className="header__link">
+					<a
+						href="https://developers.cloudflare.com/workers/learning/using-durable-objects/"
+						target="_blank"
+						rel="noreferrer noopener"
+						className="header__link"
+					>
 						<svg width="24" height="24">
 							<use xlinkHref="/icons.svg#link" />
 						</svg>

@@ -56,3 +56,26 @@
 	text-decoration: none;
 	padding: 8px 12px;
 }
+
+@media screen and (max-width: 1024px) {
+	.aside {
+		position: fixed;
+		top: 0;
+		left: 0;
+		transform: translateX(-100%);
+		width: 100%;
+		background-color: transparent;
+		z-index: 999;
+		transition: transform 0.5s ease;
+	}
+
+	.aside--active {
+		transform: translateX(0%);
+	}
+
+	.aside__container {
+		width: 240px;
+		height: 100%;
+		background-color: var(--aside-bg2);
+	}
+}
