@@ -1,0 +1,16 @@
+*,
+*::after,
+*::before {
+	box-sizing: border-box;
+}
+:root {
+	--main-bg: #ffffff;
+
+	--main-text: #262626;
+}
+
+html,
+body {
+	scroll-behavior: smooth;
+	scroll-padding-top: 40px;
+}
