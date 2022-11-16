@@ -1,8 +1,9 @@
 import React, { FC, useEffect, useRef, useState } from "react";
-import { Outlet, Link } from "react-router-dom";
+import { Outlet, NavLink } from "react-router-dom";
+
+import { Timer } from "../components/Timer";
 
 const MainLayout: FC = () => {
-	const [date, setDate] = useState(new Date());
 	const [isOpenLinks, setOpenLinks] = useState(false);
 	const [isOpenAside, setOpenASide] = useState(false);
 
@@ -29,14 +30,7 @@ const MainLayout: FC = () => {
 
 		window.addEventListener("click", clickOutside);
 
-		const timerId = setInterval(() => {
-			setDate(new Date());
-		}, 1000);
-
-		return () => {
-			clearInterval(timerId);
-			window.removeEventListener("click", clickOutside);
-		};
+		return () => window.removeEventListener("click", clickOutside);
 	}, []);
 
 	return (
@@ -52,78 +46,102 @@ const MainLayout: FC = () => {
 						<h2 className="aside__subtitle">General</h2>
 						<ul className="aside__ul">
 							<li className="aside__li">
-								<Link to="/" className="aside__link aside__li--active">
+								<NavLink
+									to="/"
+									className={({ isActive }) => (isActive ? "aside__link aside__li--active" : "aside__link")}
+								>
 									<svg width="24" height="24">
 										<use xlinkHref="/icons.svg#home" />
 									</svg>
 									Home
-								</Link>
+								</NavLink>
 							</li>
 							<li className="aside__li">
-								<Link to="/dashboard" className="aside__link">
+								<NavLink
+									to="/dashboard"
+									className={({ isActive }) => (isActive ? "aside__link aside__li--active" : "aside__link")}
+								>
 									<svg width="24" height="24">
 										<use xlinkHref="/icons.svg#dashboard" />
 									</svg>
 									Dashboard
-								</Link>
+								</NavLink>
 							</li>
 						</ul>
 						<h2 className="aside__subtitle">Backoffice</h2>
 						<ul className="aside__ul">
 							<li className="aside__li">
-								<Link to="/suppliers" className="aside__link">
+								<NavLink
+									to="/suppliers"
+									className={({ isActive }) => (isActive ? "aside__link aside__li--active" : "aside__link")}
+								>
 									<svg width="24" height="24">
 										<use xlinkHref="/icons.svg#suppliers" />
 									</svg>
 									Suppliers
-								</Link>
+								</NavLink>
 							</li>
 							<li className="aside__li">
-								<Link to="/products" className="aside__link">
+								<NavLink
+									to="/products"
+									className={({ isActive }) => (isActive ? "aside__link aside__li--active" : "aside__link")}
+								>
 									<svg width="24" height="24">
 										<use xlinkHref="/icons.svg#products" />
 									</svg>
 									Products
-								</Link>
+								</NavLink>
 							</li>
 							<li className="aside__li">
-								<Link to="/orders" className="aside__link">
+								<NavLink
+									to="/orders"
+									className={({ isActive }) => (isActive ? "aside__link aside__li--active" : "aside__link")}
+								>
 									<svg width="24" height="24">
 										<use xlinkHref="/icons.svg#orders" />
 									</svg>
 									Orders
-								</Link>
+								</NavLink>
 							</li>
 							<li className="aside__li">
-								<Link to="/employees" className="aside__link">
+								<NavLink
+									to="/employees"
+									className={({ isActive }) => (isActive ? "aside__link aside__li--active" : "aside__link")}
+								>
 									<svg width="24" height="24">
 										<use xlinkHref="/icons.svg#employees" />
 									</svg>
 									Employees
-								</Link>
+								</NavLink>
 							</li>
 							<li className="aside__li">
-								<Link to="/customers" className="aside__link">
+								<NavLink
+									to="/customers"
+									className={({ isActive }) => (isActive ? "aside__link aside__li--active" : "aside__link")}
+								>
 									<svg width="24" height="24">
 										<use xlinkHref="/icons.svg#customers" />
 									</svg>
 									Customers
-								</Link>
+								</NavLink>
 							</li>
 							<li className="aside__li">
-								<Link to="/search" className="aside__link">
+								<NavLink
+									to="/search"
+									className={({ isActive }) => (isActive ? "aside__link aside__li--active" : "aside__link")}
+								>
 									<svg width="24" height="24">
 										<use xlinkHref="/icons.svg#search" />
 									</svg>
 									Search
-								</Link>
+								</NavLink>
 							</li>
 						</ul>
 					</nav>
 				</section>
 			</aside>
 			<header className="header">
-				<div className="header__clock">{date.toLocaleTimeString()}</div>
+				<Timer />
 				<button className="headerr__menu" aria-label="Open navigation" onClick={asideBtnHandler}>
 					<svg width="24" height="24">
 						<use xlinkHref="/icons.svg#menu" />
