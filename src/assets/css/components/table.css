@@ -1,0 +1,27 @@
+.table {
+	width: 100%;
+	border-collapse: collapse;
+	border-left: 1px solid #f4f5f7;
+	border-right: 1px solid #f4f5f7;
+	margin: 0 auto 40px auto;
+	background-color: var(--secondary-bg);
+}
+
+.table__tr:nth-child(odd) {
+	background-color: var(--main-bg);
+}
+
+.table__th,
+.table__td {
+	text-align: left;
+	padding: 8px 12px;
+}
+
+.table__img {
+	width: 24px;
+}
+
+.table__avatar {
+	width: 24px;
+	height: 24px;
+}

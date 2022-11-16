@@ -1,4 +1,6 @@
 .aside {
+	position: sticky;
+	top: 0;
 	height: 100vh;
 	grid-column: 1;
 	grid-row: 1 / 3;
