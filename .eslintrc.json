@@ -24,6 +24,7 @@
 	"plugins": ["react", "@typescript-eslint", "import", "jsx-a11y", "react-hooks", "prettier"],
 	"rules": {
 		"prettier/prettier": "error",
-		"@typescript-eslint/no-misused-promises": "off"
+		"@typescript-eslint/no-misused-promises": "off",
+		"react/prop-types": "off"
 	}
 }
