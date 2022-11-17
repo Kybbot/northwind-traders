@@ -14,6 +14,14 @@ export type Supplier = {
 	HomePage: string;
 };
 
+export type SuppliersResponse = {
+	items: number;
+	page: number;
+	pages: number;
+	hasNextPage: boolean;
+	suppliers: Supplier[];
+};
+
 export type Prosuct = {
 	id: number;
 	ProductID: string;

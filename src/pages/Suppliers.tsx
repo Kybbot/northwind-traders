@@ -1,9 +1,126 @@
-import React, { FC } from "react";
+import React, { FC, useEffect, useMemo, useState } from "react";
+import { createColumnHelper, flexRender, getCoreRowModel, useReactTable } from "@tanstack/react-table";
 
-import { Info } from "../components/Info";
+import { Pagination } from "../components/Pagination";
+
+import { useFetch } from "../hooks/useFetch";
+
+import { Supplier, SuppliersResponse } from "../@types/api";
 
 const Suppliers: FC = () => {
-	return <Info title="Suppliers" />;
+	const [currentPage, setCurrentPage] = useState<number>(parseInt(location.search?.split("=")[1]) || 1);
+
+	const { loading, error, data, request } = useFetch<SuppliersResponse>(true);
+
+	const columnHelper = createColumnHelper<Supplier>();
+
+	const columns = useMemo(
+		() => [
+			columnHelper.accessor("ContactName", {
+				id: "Image",
+				header: () => null,
+				cell: (info) => (
+					<div className="table__avatar">
+						<img
+							src={`https://avatars.dicebear.com/api/initials/${info.getValue()}.svg?radius=50`}
+							alt={info.getValue()}
+						/>
+					</div>
+				),
+			}),
+			columnHelper.accessor("CompanyName", {
+				header: () => "Company",
+				cell: (info) => info.getValue(),
+			}),
+			columnHelper.accessor("ContactName", {
+				id: "ContactName",
+				header: () => "Contact",
+				cell: (info) => <span>{info.getValue()}</span>,
+			}),
+			columnHelper.accessor("ContactTitle", {
+				header: () => "Title",
+				cell: (info) => <span>{info.getValue()}</span>,
+			}),
+			columnHelper.accessor("City", {
+				header: () => "City",
+				cell: (info) => <span>{info.getValue()}</span>,
+			}),
+			columnHelper.accessor("Country", {
+				header: () => "Country",
+				cell: (info) => <span>{info.getValue()}</span>,
+			}),
+		],
+		[columnHelper]
+	);
+
+	const table = useReactTable({
+		data: data ? data.suppliers : [],
+		columns,
+		manualPagination: true,
+		pageCount: data ? data.pages : -1,
+		getCoreRowModel: getCoreRowModel(),
+	});
+
+	useEffect(() => {
+		const getSuppliers = async () => {
+			await request(`/suppliers?page=${currentPage}`);
+		};
+
+		void getSuppliers();
+	}, [currentPage, request]);
+
+	if (!data && loading) {
+		return <h4>Loadig Suppliers Data</h4>;
+	}
+
+	if (error) {
+		return <h4>An error has occurred: {error}</h4>;
+	}
+
+	return (
+		<section className="info">
+			<header className="info__header">
+				<h2 className="info__title">Suppliers</h2>
+				<svg width="24" height="24">
+					<use xlinkHref="/icons.svg#arrow-right" />
+				</svg>
+			</header>
+			<div className="info__main">
+				<table className="table">
+					<thead>
+						{table.getHeaderGroups().map((headerGroup) => (
+							<tr key={headerGroup.id}>
+								{headerGroup.headers.map((header) => (
+									<th key={header.id} className="table__th">
+										{header.isPlaceholder ? null : flexRender(header.column.columnDef.header, header.getContext())}
+									</th>
+								))}
+							</tr>
+						))}
+					</thead>
+					<tbody>
+						{table.getRowModel().rows.map((row) => (
+							<tr key={row.id} className="table__tr">
+								{row.getVisibleCells().map((cell) => (
+									<td key={cell.id} className={`table__td ${cell.column.id === "Image" ? "table__img" : ""}`}>
+										{flexRender(cell.column.columnDef.cell, cell.getContext())}
+									</td>
+								))}
+							</tr>
+						))}
+					</tbody>
+				</table>
+				{data && (
+					<Pagination
+						currentPage={currentPage}
+						maxPages={data.pages}
+						loading={loading}
+						setCurrentPage={setCurrentPage}
+					/>
+				)}
+			</div>
+		</section>
+	);
 };
 
 export default Suppliers;
