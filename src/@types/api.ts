@@ -22,7 +22,7 @@ export type SuppliersResponse = {
 	suppliers: Supplier[];
 };
 
-export type Prosuct = {
+export type Product = {
 	id: number;
 	ProductID: string;
 	ProductName: string;
@@ -34,6 +34,14 @@ export type Prosuct = {
 	UnitsOnOrder: string;
 	ReorderLevel: string;
 	Discontinued: string;
+};
+
+export type ProsuctsResponse = {
+	items: number;
+	page: number;
+	pages: number;
+	hasNextPage: boolean;
+	products: Product[];
 };
 
 export type Order = {
