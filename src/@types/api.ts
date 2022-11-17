@@ -66,6 +66,14 @@ export type Order = {
 	ProductId: string;
 };
 
+export type OrdersResponse = {
+	items: number;
+	page: number;
+	pages: number;
+	hasNextPage: boolean;
+	orders: Order[];
+};
+
 export type ApiResult<T> = {
 	data: T;
 	success: true;
