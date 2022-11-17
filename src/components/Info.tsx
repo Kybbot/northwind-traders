@@ -1,315 +1,25 @@
-import React, { FC, useMemo, useState } from "react";
+import React, { FC, useEffect, useMemo, useState } from "react";
 import { createColumnHelper, flexRender, getCoreRowModel, useReactTable } from "@tanstack/react-table";
 
-type InfoProps = { title: string };
+import { useFetch } from "../hooks/useFetch";
 
-type Supplier = {
-	image: string;
-	company: string;
-	contact: string;
-	title: string;
-	city: string;
-	country: string;
-};
+import { Supplier, SuppliersResponse } from "../@types/api";
+import { Pagination } from "./Pagination";
 
-const defaultData: Supplier[] = [
-	{
-		image: "AS",
-		company: "First",
-		contact: "First c",
-		title: "First t",
-		city: "Dnipto",
-		country: "Ukraine",
-	},
-	{
-		image: "XD",
-		company: "Second",
-		contact: "Second c",
-		title: "Second t",
-		city: "Dnipto",
-		country: "Ukraine",
-	},
-	{
-		image: "ER",
-		company: "Third",
-		contact: "Third c",
-		title: "Third t",
-		city: "Dnipto",
-		country: "Ukraine",
-	},
-	{
-		image: "KG",
-		company: "4",
-		contact: "4 c",
-		title: "4 t",
-		city: "Dnipto",
-		country: "Ukraine",
-	},
-	{
-		image: "RT",
-		company: "5",
-		contact: "5 c",
-		title: "5 t",
-		city: "Dnipto",
-		country: "Ukraine",
-	},
-	{
-		image: "YB",
-		company: "6",
-		contact: "6 c",
-		title: "6 t",
-		city: "Dnipto",
-		country: "Ukraine",
-	},
-	{
-		image: "AO",
-		company: "7",
-		contact: "7 c",
-		title: "7 t",
-		city: "Dnipto",
-		country: "Ukraine",
-	},
-	{
-		image: "XD",
-		company: "8",
-		contact: "8 c",
-		title: "8 t",
-		city: "Dnipto",
-		country: "Ukraine",
-	},
-	{
-		image: "MN",
-		company: "9",
-		contact: "9 c",
-		title: "9 t",
-		city: "Dnipto",
-		country: "Ukraine",
-	},
-	{
-		image: "AS",
-		company: "First",
-		contact: "First c",
-		title: "First t",
-		city: "Dnipto",
-		country: "Ukraine",
-	},
-	{
-		image: "XD",
-		company: "Second",
-		contact: "Second c",
-		title: "Second t",
-		city: "Dnipto",
-		country: "Ukraine",
-	},
-	{
-		image: "ER",
-		company: "Third",
-		contact: "Third c",
-		title: "Third t",
-		city: "Dnipto",
-		country: "Ukraine",
-	},
-	{
-		image: "KG",
-		company: "4",
-		contact: "4 c",
-		title: "4 t",
-		city: "Dnipto",
-		country: "Ukraine",
-	},
-	{
-		image: "RT",
-		company: "5",
-		contact: "5 c",
-		title: "5 t",
-		city: "Dnipto",
-		country: "Ukraine",
-	},
-	{
-		image: "YB",
-		company: "6",
-		contact: "6 c",
-		title: "6 t",
-		city: "Dnipto",
-		country: "Ukraine",
-	},
-	{
-		image: "AO",
-		company: "7",
-		contact: "7 c",
-		title: "7 t",
-		city: "Dnipto",
-		country: "Ukraine",
-	},
-	{
-		image: "XD",
-		company: "8",
-		contact: "8 c",
-		title: "8 t",
-		city: "Dnipto",
-		country: "Ukraine",
-	},
-	{
-		image: "MN",
-		company: "9",
-		contact: "9 c",
-		title: "9 t",
-		city: "Dnipto",
-		country: "Ukraine",
-	},
-	{
-		image: "AS",
-		company: "First",
-		contact: "First c",
-		title: "First t",
-		city: "Dnipto",
-		country: "Ukraine",
-	},
-	{
-		image: "XD",
-		company: "Second",
-		contact: "Second c",
-		title: "Second t",
-		city: "Dnipto",
-		country: "Ukraine",
-	},
-	{
-		image: "ER",
-		company: "Third",
-		contact: "Third c",
-		title: "Third t",
-		city: "Dnipto",
-		country: "Ukraine",
-	},
-	{
-		image: "KG",
-		company: "4",
-		contact: "4 c",
-		title: "4 t",
-		city: "Dnipto",
-		country: "Ukraine",
-	},
-	{
-		image: "RT",
-		company: "5",
-		contact: "5 c",
-		title: "5 t",
-		city: "Dnipto",
-		country: "Ukraine",
-	},
-	{
-		image: "YB",
-		company: "6",
-		contact: "6 c",
-		title: "6 t",
-		city: "Dnipto",
-		country: "Ukraine",
-	},
-	{
-		image: "AO",
-		company: "7",
-		contact: "7 c",
-		title: "7 t",
-		city: "Dnipto",
-		country: "Ukraine",
-	},
-	{
-		image: "XD",
-		company: "8",
-		contact: "8 c",
-		title: "8 t",
-		city: "Dnipto",
-		country: "Ukraine",
-	},
-	{
-		image: "MN",
-		company: "9",
-		contact: "9 c",
-		title: "9 t",
-		city: "Dnipto",
-		country: "Ukraine",
-	},
-	{
-		image: "AS",
-		company: "First",
-		contact: "First c",
-		title: "First t",
-		city: "Dnipto",
-		country: "Ukraine",
-	},
-	{
-		image: "XD",
-		company: "Second",
-		contact: "Second c",
-		title: "Second t",
-		city: "Dnipto",
-		country: "Ukraine",
-	},
-	{
-		image: "ER",
-		company: "Third",
-		contact: "Third c",
-		title: "Third t",
-		city: "Dnipto",
-		country: "Ukraine",
-	},
-	{
-		image: "KG",
-		company: "4",
-		contact: "4 c",
-		title: "4 t",
-		city: "Dnipto",
-		country: "Ukraine",
-	},
-	{
-		image: "RT",
-		company: "5",
-		contact: "5 c",
-		title: "5 t",
-		city: "Dnipto",
-		country: "Ukraine",
-	},
-	{
-		image: "YB",
-		company: "6",
-		contact: "6 c",
-		title: "6 t",
-		city: "Dnipto",
-		country: "Ukraine",
-	},
-	{
-		image: "AO",
-		company: "7",
-		contact: "7 c",
-		title: "7 t",
-		city: "Dnipto",
-		country: "Ukraine",
-	},
-	{
-		image: "XD",
-		company: "8",
-		contact: "8 c",
-		title: "8 t",
-		city: "Dnipto",
-		country: "Ukraine",
-	},
-	{
-		image: "MN",
-		company: "9",
-		contact: "9 c",
-		title: "9 t",
-		city: "Dnipto",
-		country: "Ukraine",
-	},
-];
+type InfoProps = { title: string; url: string };
 
-export const Info: FC<InfoProps> = ({ title }) => {
+export const Info: FC<InfoProps> = ({ title, url }) => {
+	const [currentPage, setCurrentPage] = useState<number>(parseInt(location.search?.split("=")[1]) || 1);
+
+	const { loading, error, data, request } = useFetch<SuppliersResponse>(true);
+
 	const columnHelper = createColumnHelper<Supplier>();
 
 	const columns = useMemo(
 		() => [
-			columnHelper.accessor("image", {
-				header: () => <span></span>,
+			columnHelper.accessor("ContactName", {
+				id: "Image",
+				header: () => null,
 				cell: (info) => (
 					<div className="table__avatar">
 						<img
@@ -319,39 +29,54 @@ export const Info: FC<InfoProps> = ({ title }) => {
 					</div>
 				),
 			}),
-			columnHelper.accessor("company", {
-				header: () => <span>Company</span>,
+			columnHelper.accessor("CompanyName", {
+				header: () => "Company",
 				cell: (info) => info.getValue(),
 			}),
-			columnHelper.accessor("contact", {
-				header: () => <span>Contact</span>,
+			columnHelper.accessor("ContactName", {
+				id: "ContactName",
+				header: () => "Contact",
 				cell: (info) => <span>{info.getValue()}</span>,
 			}),
-			columnHelper.accessor("title", {
-				header: () => <span>Title</span>,
+			columnHelper.accessor("ContactTitle", {
+				header: () => "Title",
 				cell: (info) => <span>{info.getValue()}</span>,
 			}),
-			columnHelper.accessor("city", {
-				header: () => <span>City</span>,
+			columnHelper.accessor("City", {
+				header: () => "City",
 				cell: (info) => <span>{info.getValue()}</span>,
 			}),
-			columnHelper.accessor("country", {
-				header: () => <span>Country</span>,
+			columnHelper.accessor("Country", {
+				header: () => "Country",
 				cell: (info) => <span>{info.getValue()}</span>,
 			}),
 		],
 		[columnHelper]
 	);
 
-	const [data] = useState(() => [...defaultData]);
-
 	const table = useReactTable({
-		data,
+		data: data ? data.suppliers : [],
 		columns,
 		manualPagination: true,
-		pageCount: -1,
+		pageCount: data ? data.pages : -1,
 		getCoreRowModel: getCoreRowModel(),
 	});
+
+	useEffect(() => {
+		const getSuppliers = async () => {
+			await request(`${url}?page=${currentPage}`);
+		};
+
+		void getSuppliers();
+	}, [url, currentPage, request]);
+
+	if (!data && loading) {
+		return <h4>Loadig Suppliers Data</h4>;
+	}
+
+	if (error) {
+		return <h4>An error has occurred: {error}</h4>;
+	}
 
 	return (
 		<section className="info">
@@ -378,7 +103,7 @@ export const Info: FC<InfoProps> = ({ title }) => {
 						{table.getRowModel().rows.map((row) => (
 							<tr key={row.id} className="table__tr">
 								{row.getVisibleCells().map((cell) => (
-									<td key={cell.id} className={`table__td ${cell.column.id === "image" ? "table__img" : ""}`}>
+									<td key={cell.id} className={`table__td ${cell.column.id === "Image" ? "table__img" : ""}`}>
 										{flexRender(cell.column.columnDef.cell, cell.getContext())}
 									</td>
 								))}
@@ -386,6 +111,14 @@ export const Info: FC<InfoProps> = ({ title }) => {
 						))}
 					</tbody>
 				</table>
+				{data && (
+					<Pagination
+						currentPage={currentPage}
+						maxPages={data.pages}
+						loading={loading}
+						setCurrentPage={setCurrentPage}
+					/>
+				)}
 			</div>
 		</section>
 	);
