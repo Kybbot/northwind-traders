@@ -22,19 +22,26 @@ const Products: FC = () => {
 			}),
 			columnHelper.accessor("QuantityPerUnit", {
 				header: () => "Qt per unit",
-				cell: (info) => <span>{info.getValue()}</span>,
+				cell: (info) => info.getValue(),
 			}),
 			columnHelper.accessor("UnitPrice", {
 				header: () => "Price",
-				cell: (info) => <span>{info.getValue()}</span>,
+				cell: (info) => {
+					const price = new Intl.NumberFormat("en-US", {
+						style: "currency",
+						currency: "USD",
+					}).format(+info.getValue());
+
+					return price;
+				},
 			}),
 			columnHelper.accessor("UnitsInStock", {
 				header: () => "Stock",
-				cell: (info) => <span>{info.getValue()}</span>,
+				cell: (info) => info.getValue(),
 			}),
 			columnHelper.accessor("UnitsOnOrder", {
 				header: () => "Orders",
-				cell: (info) => <span>{info.getValue()}</span>,
+				cell: (info) => info.getValue(),
 			}),
 		],
 		[columnHelper]
