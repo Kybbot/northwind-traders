@@ -22,7 +22,7 @@ export type SuppliersResponse = {
 	suppliers: SupplierType[];
 };
 
-export type ProductType = {
+export interface ProductType {
 	id: number;
 	ProductID: string;
 	ProductName: string;
@@ -34,7 +34,11 @@ export type ProductType = {
 	UnitsOnOrder: string;
 	ReorderLevel: string;
 	Discontinued: string;
-};
+}
+
+export interface OneProductType extends ProductType {
+	SupplierName: string;
+}
 
 export type ProsuctsResponse = {
 	items: number;
@@ -44,7 +48,7 @@ export type ProsuctsResponse = {
 	products: ProductType[];
 };
 
-export type Order = {
+export type OrderType = {
 	TotalProductsDiscount: number;
 	TotalProductsPrice: number;
 	TotalProductsItems: number;
@@ -71,7 +75,40 @@ export type OrdersResponse = {
 	page: number;
 	pages: number;
 	hasNextPage: boolean;
-	orders: Order[];
+	orders: OrderType[];
+};
+
+export interface EmployeeType {
+	EmployeeID: string;
+	LastName: string;
+	FirstName: string;
+	Title: string;
+	TitleOfCourtesy: string;
+	BirthDate: string;
+	HireDate: string;
+	Address: string;
+	City: string;
+	Region: string;
+	PostalCode: string;
+	Country: string;
+	HomePhone: string;
+	Extension: string;
+	Notes: string;
+	ReportsTo: string;
+}
+
+export interface OneEmployeeType extends EmployeeType {
+	ReportId: string;
+	ReportFirstName: string;
+	ReportLastName: string;
+}
+
+export type EmployeesResponse = {
+	items: number;
+	page: number;
+	pages: number;
+	hasNextPage: boolean;
+	orders: EmployeeType[];
 };
 
 export type ApiResult<T> = {

@@ -5,14 +5,14 @@ import { Pagination } from "../components/Pagination";
 
 import { useFetch } from "../hooks/useFetch";
 
-import { Order, OrdersResponse } from "../@types/api";
+import { OrderType, OrdersResponse } from "../@types/api";
 
 const Orders: FC = () => {
 	const [currentPage, setCurrentPage] = useState<number>(parseInt(location.search?.split("=")[1]) || 1);
 
 	const { loading, error, data, request } = useFetch<OrdersResponse>(true);
 
-	const columnHelper = createColumnHelper<Order>();
+	const columnHelper = createColumnHelper<OrderType>();
 
 	const columns = useMemo(
 		() => [
