@@ -78,7 +78,7 @@ export type OrdersResponse = {
 	orders: OrderType[];
 };
 
-export interface EmployeeType {
+export type EmployeeType = {
 	EmployeeID: string;
 	LastName: string;
 	FirstName: string;
@@ -95,13 +95,31 @@ export interface EmployeeType {
 	Extension: string;
 	Notes: string;
 	ReportsTo: string;
-}
+};
 
-export interface OneEmployeeType extends EmployeeType {
-	ReportId: string;
-	ReportFirstName: string;
-	ReportLastName: string;
-}
+export type OneEmployeeType = {
+	employee: {
+		ReportId: string;
+		ReportFirstName: string;
+		ReportLastName: string;
+		EmployeeID: string;
+		LastName: string;
+		FirstName: string;
+		Title: string;
+		TitleOfCourtesy: string;
+		BirthDate: string;
+		HireDate: string;
+		Address: string;
+		City: string;
+		Region: string;
+		PostalCode: string;
+		Country: string;
+		HomePhone: string;
+		Extension: string;
+		Notes: string;
+		ReportsTo: string;
+	};
+};
 
 export type EmployeesResponse = {
 	items: number;

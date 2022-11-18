@@ -10,6 +10,7 @@ import Products from "./pages/Products";
 import Product from "./pages/Product";
 import Orders from "./pages/Orders";
 import Employees from "./pages/Employees";
+import Employee from "./pages/Employee";
 
 const App: FC = () => {
 	return (
@@ -22,6 +23,7 @@ const App: FC = () => {
 				<Route path="product/:id" element={<Product />} />
 				<Route path="orders" element={<Orders />} />
 				<Route path="employees" element={<Employees />} />
+				<Route path="employee/:id" element={<Employee />} />
 			</Route>
 		</Routes>
 	);
