@@ -3,7 +3,7 @@ import { createColumnHelper, flexRender, getCoreRowModel, useReactTable } from "
 
 import { useFetch } from "../hooks/useFetch";
 
-import { Supplier, SuppliersResponse } from "../@types/api";
+import { SupplierType, SuppliersResponse } from "../@types/api";
 import { Pagination } from "./Pagination";
 
 type InfoProps = { title: string; url: string };
@@ -13,7 +13,7 @@ export const Info: FC<InfoProps> = ({ title, url }) => {
 
 	const { loading, error, data, request } = useFetch<SuppliersResponse>(true);
 
-	const columnHelper = createColumnHelper<Supplier>();
+	const columnHelper = createColumnHelper<SupplierType>();
 
 	const columns = useMemo(
 		() => [

@@ -6,14 +6,14 @@ import { Pagination } from "../components/Pagination";
 
 import { useFetch } from "../hooks/useFetch";
 
-import { Supplier, SuppliersResponse } from "../@types/api";
+import { SupplierType, SuppliersResponse } from "../@types/api";
 
 const Suppliers: FC = () => {
 	const [currentPage, setCurrentPage] = useState<number>(parseInt(location.search?.split("=")[1]) || 1);
 
 	const { loading, error, data, request } = useFetch<SuppliersResponse>(true);
 
-	const columnHelper = createColumnHelper<Supplier>();
+	const columnHelper = createColumnHelper<SupplierType>();
 
 	const columns = useMemo(
 		() => [

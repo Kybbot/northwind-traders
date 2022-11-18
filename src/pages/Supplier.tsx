@@ -5,25 +5,26 @@ import { AboutBlock } from "../components/AboutBlock";
 
 import { useFetch } from "../hooks/useFetch";
 
-import { Supplier } from "../@types/api";
+import { SupplierType } from "../@types/api";
+import { arrType } from "../@types/arr";
 
-const arr = [
-	{ key: "CompanyName", title: "Company Name" },
-	{ key: "Region", title: "Region" },
-	{ key: "ContactName", title: "Contact Name" },
-	{ key: "PostalCode", title: "Postal Code" },
-	{ key: "ContactTitle", title: "Contact Title" },
-	{ key: "Country", title: "Country" },
-	{ key: "Address", title: "Address" },
-	{ key: "Phone", title: "Phone" },
-	{ key: "City", title: "City" },
+const arr: arrType = [
+	{ key: "CompanyName", title: "Company Name", type: "string" },
+	{ key: "Region", title: "Region", type: "string" },
+	{ key: "ContactName", title: "Contact Name", type: "string" },
+	{ key: "PostalCode", title: "Postal Code", type: "string" },
+	{ key: "ContactTitle", title: "Contact Title", type: "string" },
+	{ key: "Country", title: "Country", type: "string" },
+	{ key: "Address", title: "Address", type: "string" },
+	{ key: "Phone", title: "Phone", type: "string" },
+	{ key: "City", title: "City", type: "string" },
 ];
 
 const About: FC = () => {
 	const navigate = useNavigate();
 	const location = useLocation();
 
-	const { loading, error, data, request } = useFetch<Supplier>();
+	const { loading, error, data, request } = useFetch<SupplierType>();
 
 	const renderData = () => {
 		const info = [];
@@ -31,9 +32,10 @@ const About: FC = () => {
 		for (let i = 0; i < arr.length; i++) {
 			const key = arr[i].key;
 			const title = arr[i].title;
+			const type = arr[i].type;
 
-			if (data && Object.prototype.hasOwnProperty.call(data, key)) {
-				info.push(<AboutBlock key={i} title={title} text={data[key as keyof Supplier].toString()} />);
+			if (data && Object.prototype.hasOwnProperty.call(data, key) && (type === "string" || type === "price")) {
+				info.push(<AboutBlock key={i} title={title} text={data[key as keyof SupplierType].toString()} type={type} />);
 			}
 		}
 
