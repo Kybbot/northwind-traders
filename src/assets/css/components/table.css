@@ -25,3 +25,8 @@
 	width: 24px;
 	height: 24px;
 }
+
+.table__link {
+	color: var(--accent-color);
+	text-decoration: none;
+}

@@ -7,6 +7,7 @@ import Home from "./pages/Home";
 import Orders from "./pages/Orders";
 import Products from "./pages/Products";
 import Suppliers from "./pages/Suppliers";
+import Supplier from "./pages/Supplier";
 
 const App: FC = () => {
 	return (
@@ -14,6 +15,7 @@ const App: FC = () => {
 			<Route path="/" element={<MainLayout />}>
 				<Route index element={<Home />} />
 				<Route path="suppliers" element={<Suppliers />} />
+				<Route path="supplier/:id" element={<Supplier />} />
 				<Route path="products" element={<Products />} />
 				<Route path="orders" element={<Orders />} />
 			</Route>
