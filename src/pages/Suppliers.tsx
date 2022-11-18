@@ -1,4 +1,5 @@
 import React, { FC, useEffect, useMemo, useState } from "react";
+import { Link } from "react-router-dom";
 import { createColumnHelper, flexRender, getCoreRowModel, useReactTable } from "@tanstack/react-table";
 
 import { Pagination } from "../components/Pagination";
@@ -30,24 +31,28 @@ const Suppliers: FC = () => {
 			}),
 			columnHelper.accessor("CompanyName", {
 				header: () => "Company",
-				cell: (info) => info.getValue(),
+				cell: (info) => (
+					<Link to={`/supplier/${info.row.original.SupplierID}`} className="table__link">
+						{info.getValue()}
+					</Link>
+				),
 			}),
 			columnHelper.accessor("ContactName", {
 				id: "ContactName",
 				header: () => "Contact",
-				cell: (info) => <span>{info.getValue()}</span>,
+				cell: (info) => info.getValue(),
 			}),
 			columnHelper.accessor("ContactTitle", {
 				header: () => "Title",
-				cell: (info) => <span>{info.getValue()}</span>,
+				cell: (info) => info.getValue(),
 			}),
 			columnHelper.accessor("City", {
 				header: () => "City",
-				cell: (info) => <span>{info.getValue()}</span>,
+				cell: (info) => info.getValue(),
 			}),
 			columnHelper.accessor("Country", {
 				header: () => "Country",
-				cell: (info) => <span>{info.getValue()}</span>,
+				cell: (info) => info.getValue(),
 			}),
 		],
 		[columnHelper]
