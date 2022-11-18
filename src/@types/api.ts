@@ -1,4 +1,4 @@
-export type Supplier = {
+export type SupplierType = {
 	id: number;
 	SupplierID: string;
 	CompanyName: string;
@@ -19,10 +19,10 @@ export type SuppliersResponse = {
 	page: number;
 	pages: number;
 	hasNextPage: boolean;
-	suppliers: Supplier[];
+	suppliers: SupplierType[];
 };
 
-export type Product = {
+export type ProductType = {
 	id: number;
 	ProductID: string;
 	ProductName: string;
@@ -41,7 +41,7 @@ export type ProsuctsResponse = {
 	page: number;
 	pages: number;
 	hasNextPage: boolean;
-	products: Product[];
+	products: ProductType[];
 };
 
 export type Order = {

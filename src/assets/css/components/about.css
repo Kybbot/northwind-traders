@@ -35,6 +35,11 @@
 	margin: 0;
 }
 
+.about__link {
+	color: var(--accent-color);
+	text-decoration: none;
+}
+
 .about__footer {
 	padding: 24px;
 	background-color: var(--secondary-bg);
