@@ -1,24 +1,29 @@
 import React, { FC, useEffect, useMemo, useState } from "react";
+import { Link } from "react-router-dom";
 import { createColumnHelper, flexRender, getCoreRowModel, useReactTable } from "@tanstack/react-table";
 
 import { Pagination } from "../components/Pagination";
 
 import { useFetch } from "../hooks/useFetch";
 
-import { Product, ProsuctsResponse } from "../@types/api";
+import { ProductType, ProsuctsResponse } from "../@types/api";
 
 const Products: FC = () => {
 	const [currentPage, setCurrentPage] = useState<number>(parseInt(location.search?.split("=")[1]) || 1);
 
 	const { loading, error, data, request } = useFetch<ProsuctsResponse>(true);
 
-	const columnHelper = createColumnHelper<Product>();
+	const columnHelper = createColumnHelper<ProductType>();
 
 	const columns = useMemo(
 		() => [
 			columnHelper.accessor("ProductName", {
 				header: () => "Name",
-				cell: (info) => info.getValue(),
+				cell: (info) => (
+					<Link to={`/product/${info.row.original.ProductID}`} className="table__link">
+						{info.getValue()}
+					</Link>
+				),
 			}),
 			columnHelper.accessor("QuantityPerUnit", {
 				header: () => "Qt per unit",
