@@ -5,7 +5,7 @@ import { AboutBlock } from "../components/AboutBlock";
 
 import { useFetch } from "../hooks/useFetch";
 
-import { ProductType } from "../@types/api";
+import { OneProductType } from "../@types/api";
 import { arrType } from "../@types/arr";
 
 const arr: arrType = [
@@ -23,7 +23,7 @@ const Product: FC = () => {
 	const navigate = useNavigate();
 	const location = useLocation();
 
-	const { loading, error, data, request } = useFetch<ProductType>();
+	const { loading, error, data, request } = useFetch<OneProductType>();
 
 	const renderData = () => {
 		const info = [];
@@ -34,7 +34,7 @@ const Product: FC = () => {
 			const type = arr[i].type;
 
 			if (data && Object.prototype.hasOwnProperty.call(data, key) && (type === "string" || type === "price")) {
-				info.push(<AboutBlock key={i} title={title} text={data[key as keyof ProductType].toString()} type={type} />);
+				info.push(<AboutBlock key={i} title={title} text={data[key as keyof OneProductType].toString()} type={type} />);
 			}
 
 			if (data && Object.prototype.hasOwnProperty.call(data, key) && type === "link") {
@@ -42,7 +42,7 @@ const Product: FC = () => {
 					<AboutBlock
 						key={i}
 						title={title}
-						text={data[key as keyof ProductType].toString()}
+						text={data[key as keyof OneProductType].toString()}
 						type={type}
 						linkTo={`/supplier/${data.SupplierID}`}
 					/>
