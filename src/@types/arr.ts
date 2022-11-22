@@ -1,5 +1,5 @@
 export type arrType = {
-	key: string;
+	key: string | string[];
 	title: string;
 	type: "string" | "link" | "price";
 }[];

@@ -16,7 +16,7 @@ type PriceAboutBlock = {
 
 type AboutBlockProps = {
 	title: string;
-	text: string;
+	text: string | number;
 	linkTo?: string;
 } & (SimpleAboutBlock | LinkAboutBlock | PriceAboutBlock);
 

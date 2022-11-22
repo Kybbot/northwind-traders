@@ -33,20 +33,36 @@ const Product: FC = () => {
 			const title = arr[i].title;
 			const type = arr[i].type;
 
-			if (data && Object.prototype.hasOwnProperty.call(data, key) && (type === "string" || type === "price")) {
-				info.push(<AboutBlock key={i} title={title} text={data[key as keyof OneProductType].toString()} type={type} />);
-			}
+			if (typeof key !== "object") {
+				if (data && Object.prototype.hasOwnProperty.call(data, key) && (type === "string" || type === "price")) {
+					info.push(
+						<AboutBlock key={i} title={title} text={data[key as keyof OneProductType].toString()} type={type} />
+					);
+				}
 
-			if (data && Object.prototype.hasOwnProperty.call(data, key) && type === "link") {
-				info.push(
-					<AboutBlock
-						key={i}
-						title={title}
-						text={data[key as keyof OneProductType].toString()}
-						type={type}
-						linkTo={`/supplier/${data.SupplierID}`}
-					/>
-				);
+				if (data && Object.prototype.hasOwnProperty.call(data, key) && type === "link") {
+					info.push(
+						<AboutBlock
+							key={i}
+							title={title}
+							text={data[key as keyof OneProductType].toString()}
+							type={type}
+							linkTo={`/supplier/${data.SupplierID}`}
+						/>
+					);
+				}
+			} else {
+				let text = "";
+
+				for (let j = 0; j < key.length; j++) {
+					if (data && Object.prototype.hasOwnProperty.call(data, key[j])) {
+						text += ` ${data[key[j] as keyof typeof data]}`;
+					}
+				}
+
+				if (data && (type === "string" || type === "price")) {
+					info.push(<AboutBlock key={i} title={title} text={text} type={type} />);
+				}
 			}
 		}
 
