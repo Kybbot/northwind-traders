@@ -4,6 +4,7 @@ import { Route, Routes } from "react-router-dom";
 import MainLayout from "./layouts/MainLayout";
 
 import Home from "./pages/Home";
+import Dashboard from "./pages/Dashboard";
 import Suppliers from "./pages/Suppliers";
 import Supplier from "./pages/Supplier";
 import Products from "./pages/Products";
@@ -17,6 +18,7 @@ const App: FC = () => {
 		<Routes>
 			<Route path="/" element={<MainLayout />}>
 				<Route index element={<Home />} />
+				<Route path="dashboard" element={<Dashboard />} />
 				<Route path="suppliers" element={<Suppliers />} />
 				<Route path="supplier/:id" element={<Supplier />} />
 				<Route path="products" element={<Products />} />

@@ -1,0 +1,31 @@
+.dashboard {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 20px;
+	padding: 24px;
+}
+
+.dashboard__log {
+	grid-column: span 2;
+}
+
+.dashboard__title {
+	font-size: 20px;
+	line-height: 24px;
+	font-weight: 400;
+	margin: 0;
+}
+
+.dashboard__text {
+	font-weight: 300;
+	margin: 0;
+}
+
+.dashboard__text--small {
+	font-size: 12px;
+	line-height: 14px;
+}
+
+.dashboard__article {
+	margin: 10px 0;
+}
