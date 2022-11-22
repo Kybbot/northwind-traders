@@ -111,6 +111,29 @@ export type EmployeesResponse = {
 	orders: EmployeeType[];
 };
 
+export type CustomerType = {
+	id: number;
+	CustomerID: string;
+	CompanyName: string;
+	ContactName: string;
+	ContactTitle: string;
+	Address: string;
+	City: string;
+	Region: string;
+	PostalCode: string;
+	Country: string;
+	Phone: string;
+	Fax: string;
+};
+
+export type CustomerssResponse = {
+	items: number;
+	page: number;
+	pages: number;
+	hasNextPage: boolean;
+	suppliers: CustomerType[];
+};
+
 export type DashboardResponse = {
 	geoData: {
 		ip_address: string;
