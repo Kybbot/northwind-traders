@@ -38,10 +38,8 @@ const Employee: FC = () => {
 			const title = arr[i].title;
 			const type = arr[i].type;
 
-			if (data && Object.prototype.hasOwnProperty.call(data.employee, key) && (type === "string" || type === "price")) {
-				info.push(
-					<AboutBlock key={i} title={title} text={data.employee[key as keyof typeof data.employee]} type={type} />
-				);
+			if (data && Object.prototype.hasOwnProperty.call(data, key) && (type === "string" || type === "price")) {
+				info.push(<AboutBlock key={i} title={title} text={data[key as keyof typeof data]} type={type} />);
 			}
 		}
 
