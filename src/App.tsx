@@ -10,6 +10,7 @@ import Supplier from "./pages/Supplier";
 import Products from "./pages/Products";
 import Product from "./pages/Product";
 import Orders from "./pages/Orders";
+import Order from "./pages/Order";
 import Employees from "./pages/Employees";
 import Employee from "./pages/Employee";
 import Customers from "./pages/Customers";
@@ -26,6 +27,7 @@ const App: FC = () => {
 				<Route path="products" element={<Products />} />
 				<Route path="product/:id" element={<Product />} />
 				<Route path="orders" element={<Orders />} />
+				<Route path="order/:id" element={<Order />} />
 				<Route path="employees" element={<Employees />} />
 				<Route path="employee/:id" element={<Employee />} />
 				<Route path="customers" element={<Customers />} />

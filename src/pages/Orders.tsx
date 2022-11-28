@@ -1,4 +1,5 @@
 import React, { FC, useEffect, useMemo, useState } from "react";
+import { Link } from "react-router-dom";
 import { createColumnHelper, flexRender, getCoreRowModel, useReactTable } from "@tanstack/react-table";
 
 import { Pagination } from "../components/Pagination";
@@ -18,7 +19,11 @@ const Orders: FC = () => {
 		() => [
 			columnHelper.accessor("OrderId", {
 				header: () => "Id",
-				cell: (info) => info.getValue(),
+				cell: (info) => (
+					<Link to={`/order/${info.row.original.OrderId}`} className="table__link">
+						{info.getValue()}
+					</Link>
+				),
 			}),
 			columnHelper.accessor("TotalProductsPrice", {
 				header: () => "Total Price",

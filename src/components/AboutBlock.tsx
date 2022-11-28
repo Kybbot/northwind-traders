@@ -1,6 +1,8 @@
 import React, { FC } from "react";
 import { Link } from "react-router-dom";
 
+import { formatDate } from "../utils/formatDate";
+
 type SimpleAboutBlock = {
 	type: "string";
 };
@@ -14,11 +16,15 @@ type PriceAboutBlock = {
 	type: "price";
 };
 
+type DateAboutBlock = {
+	type: "date";
+};
+
 type AboutBlockProps = {
 	title: string;
 	text: string | number;
 	linkTo?: string;
-} & (SimpleAboutBlock | LinkAboutBlock | PriceAboutBlock);
+} & (SimpleAboutBlock | LinkAboutBlock | PriceAboutBlock | DateAboutBlock);
 
 export const AboutBlock: FC<AboutBlockProps> = ({ title, text, type, linkTo }) => {
 	return (
@@ -40,6 +46,7 @@ export const AboutBlock: FC<AboutBlockProps> = ({ title, text, type, linkTo }) =
 					}).format(+text)}
 				</p>
 			)}
+			{type === "date" && <p className="about__text">{formatDate(String(text))}</p>}
 		</div>
 	);
 };
