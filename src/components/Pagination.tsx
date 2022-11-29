@@ -1,5 +1,5 @@
-import React, { Dispatch, FC, memo, SetStateAction } from "react";
-import { Link } from "react-router-dom";
+import React, { ChangeEvent, Dispatch, FC, memo, SetStateAction, useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 
 type PaginationProps = {
 	currentPage: number;
@@ -9,11 +9,16 @@ type PaginationProps = {
 };
 
 export const Pagination: FC<PaginationProps> = memo(({ currentPage, maxPages, loading, setCurrentPage }) => {
-	const changePage = (page: number) => {
-		if (page > maxPages) return;
+	const navigate = useNavigate();
 
-		setCurrentPage(page);
-		window.scrollTo(0, 0);
+	const [input, setInput] = useState(currentPage);
+	const [debouncedValue, setDebouncedValue] = useState(input);
+
+	const inputHandler = (event: ChangeEvent<HTMLInputElement>) => {
+		const { value } = event.target;
+		const number = +value;
+
+		setInput(number);
 	};
 
 	const prevPageHandler = () => {
@@ -25,6 +30,24 @@ export const Pagination: FC<PaginationProps> = memo(({ currentPage, maxPages, lo
 		setCurrentPage((prevState) => (prevState === maxPages ? prevState : prevState + 1));
 		window.scrollTo(0, 0);
 	};
+
+	useEffect(() => {
+		const handler = setTimeout(() => {
+			setDebouncedValue(input);
+		}, 500);
+
+		return () => {
+			clearTimeout(handler);
+		};
+	}, [input]);
+
+	useEffect(() => {
+		if (debouncedValue > maxPages) return;
+
+		setCurrentPage(debouncedValue);
+		navigate(`?page=${debouncedValue}`);
+		window.scrollTo(0, 0);
+	}, [debouncedValue, maxPages, navigate, setCurrentPage]);
 
 	return (
 		<div className="pagination">
@@ -53,8 +76,8 @@ export const Pagination: FC<PaginationProps> = memo(({ currentPage, maxPages, lo
 						type="number"
 						min={1}
 						max={maxPages}
-						defaultValue={currentPage}
-						onChange={(e) => changePage(Number(e.target.value))}
+						value={input}
+						onChange={inputHandler}
 						className="pagination__input"
 					/>
 				</div>
