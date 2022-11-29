@@ -15,6 +15,7 @@ import Employees from "./pages/Employees";
 import Employee from "./pages/Employee";
 import Customers from "./pages/Customers";
 import Customer from "./pages/Customer";
+import Search from "./pages/Search";
 
 const App: FC = () => {
 	return (
@@ -32,6 +33,7 @@ const App: FC = () => {
 				<Route path="employee/:id" element={<Employee />} />
 				<Route path="customers" element={<Customers />} />
 				<Route path="customer/:id" element={<Customer />} />
+				<Route path="search" element={<Search />} />
 			</Route>
 		</Routes>
 	);

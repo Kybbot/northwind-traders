@@ -31,7 +31,7 @@ export const useFetch = <T>(savePrevData = false) => {
 
 				const data = (await response.json()) as ApiResponse<T>;
 
-				if (!response.ok && !data.success) {
+				if (!data.success) {
 					setLoading(false);
 					throw new Error(data.error.message);
 				}
