@@ -162,30 +162,32 @@ const Order: FC = () => {
 			<div className="about__container">{renderData()}</div>
 			<div className="about__table">
 				<h2 className="about__subname">Products in Order</h2>
-				<table className="table">
-					<thead>
-						{table.getHeaderGroups().map((headerGroup) => (
-							<tr key={headerGroup.id}>
-								{headerGroup.headers.map((header) => (
-									<th key={header.id} className="table__th">
-										{header.isPlaceholder ? null : flexRender(header.column.columnDef.header, header.getContext())}
-									</th>
-								))}
-							</tr>
-						))}
-					</thead>
-					<tbody>
-						{table.getRowModel().rows.map((row) => (
-							<tr key={row.id} className="table__tr">
-								{row.getVisibleCells().map((cell) => (
-									<td key={cell.id} className="table__td">
-										{flexRender(cell.column.columnDef.cell, cell.getContext())}
-									</td>
-								))}
-							</tr>
-						))}
-					</tbody>
-				</table>
+				<div className="about__wrapper">
+					<table className="table">
+						<thead>
+							{table.getHeaderGroups().map((headerGroup) => (
+								<tr key={headerGroup.id}>
+									{headerGroup.headers.map((header) => (
+										<th key={header.id} className="table__th">
+											{header.isPlaceholder ? null : flexRender(header.column.columnDef.header, header.getContext())}
+										</th>
+									))}
+								</tr>
+							))}
+						</thead>
+						<tbody>
+							{table.getRowModel().rows.map((row) => (
+								<tr key={row.id} className="table__tr">
+									{row.getVisibleCells().map((cell) => (
+										<td key={cell.id} className="table__td">
+											{flexRender(cell.column.columnDef.cell, cell.getContext())}
+										</td>
+									))}
+								</tr>
+							))}
+						</tbody>
+					</table>
+				</div>
 			</div>
 			<footer className="about__footer">
 				<button type="button" className="about__btn" onClick={goBackHandler}>

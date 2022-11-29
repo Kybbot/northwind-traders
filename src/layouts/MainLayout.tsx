@@ -48,6 +48,7 @@ const MainLayout: FC = () => {
 							<li className="aside__li">
 								<NavLink
 									to="/"
+									onClick={asideBtnHandler}
 									className={({ isActive }) => (isActive ? "aside__link aside__li--active" : "aside__link")}
 								>
 									<svg width="24" height="24">
@@ -59,6 +60,7 @@ const MainLayout: FC = () => {
 							<li className="aside__li">
 								<NavLink
 									to="/dashboard"
+									onClick={asideBtnHandler}
 									className={({ isActive }) => (isActive ? "aside__link aside__li--active" : "aside__link")}
 								>
 									<svg width="24" height="24">
@@ -73,6 +75,7 @@ const MainLayout: FC = () => {
 							<li className="aside__li">
 								<NavLink
 									to="/suppliers"
+									onClick={asideBtnHandler}
 									className={({ isActive }) => (isActive ? "aside__link aside__li--active" : "aside__link")}
 								>
 									<svg width="24" height="24">
@@ -84,6 +87,7 @@ const MainLayout: FC = () => {
 							<li className="aside__li">
 								<NavLink
 									to="/products"
+									onClick={asideBtnHandler}
 									className={({ isActive }) => (isActive ? "aside__link aside__li--active" : "aside__link")}
 								>
 									<svg width="24" height="24">
@@ -95,6 +99,7 @@ const MainLayout: FC = () => {
 							<li className="aside__li">
 								<NavLink
 									to="/orders"
+									onClick={asideBtnHandler}
 									className={({ isActive }) => (isActive ? "aside__link aside__li--active" : "aside__link")}
 								>
 									<svg width="24" height="24">
@@ -106,6 +111,7 @@ const MainLayout: FC = () => {
 							<li className="aside__li">
 								<NavLink
 									to="/employees"
+									onClick={asideBtnHandler}
 									className={({ isActive }) => (isActive ? "aside__link aside__li--active" : "aside__link")}
 								>
 									<svg width="24" height="24">
@@ -117,6 +123,7 @@ const MainLayout: FC = () => {
 							<li className="aside__li">
 								<NavLink
 									to="/customers"
+									onClick={asideBtnHandler}
 									className={({ isActive }) => (isActive ? "aside__link aside__li--active" : "aside__link")}
 								>
 									<svg width="24" height="24">
@@ -128,6 +135,7 @@ const MainLayout: FC = () => {
 							<li className="aside__li">
 								<NavLink
 									to="/search"
+									onClick={asideBtnHandler}
 									className={({ isActive }) => (isActive ? "aside__link aside__li--active" : "aside__link")}
 								>
 									<svg width="24" height="24">

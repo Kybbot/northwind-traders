@@ -14,3 +14,11 @@
 	line-height: 20px;
 	margin: 0;
 }
+
+.info__main {
+	overflow: hidden;
+}
+
+.info__wrapper {
+	overflow-x: scroll;
+}

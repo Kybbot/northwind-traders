@@ -85,30 +85,32 @@ const Products: FC = () => {
 				</svg>
 			</header>
 			<div className="info__main">
-				<table className="table">
-					<thead>
-						{table.getHeaderGroups().map((headerGroup) => (
-							<tr key={headerGroup.id}>
-								{headerGroup.headers.map((header) => (
-									<th key={header.id} className="table__th">
-										{header.isPlaceholder ? null : flexRender(header.column.columnDef.header, header.getContext())}
-									</th>
-								))}
-							</tr>
-						))}
-					</thead>
-					<tbody>
-						{table.getRowModel().rows.map((row) => (
-							<tr key={row.id} className="table__tr">
-								{row.getVisibleCells().map((cell) => (
-									<td key={cell.id} className="table__td">
-										{flexRender(cell.column.columnDef.cell, cell.getContext())}
-									</td>
-								))}
-							</tr>
-						))}
-					</tbody>
-				</table>
+				<div className="info__wrapper">
+					<table className="table">
+						<thead>
+							{table.getHeaderGroups().map((headerGroup) => (
+								<tr key={headerGroup.id}>
+									{headerGroup.headers.map((header) => (
+										<th key={header.id} className="table__th">
+											{header.isPlaceholder ? null : flexRender(header.column.columnDef.header, header.getContext())}
+										</th>
+									))}
+								</tr>
+							))}
+						</thead>
+						<tbody>
+							{table.getRowModel().rows.map((row) => (
+								<tr key={row.id} className="table__tr">
+									{row.getVisibleCells().map((cell) => (
+										<td key={cell.id} className="table__td">
+											{flexRender(cell.column.columnDef.cell, cell.getContext())}
+										</td>
+									))}
+								</tr>
+							))}
+						</tbody>
+					</table>
+				</div>
 				{data && (
 					<Pagination
 						currentPage={currentPage}
