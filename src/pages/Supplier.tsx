@@ -20,7 +20,7 @@ const arr: arrType = [
 	{ key: "City", title: "City", type: "string" },
 ];
 
-const About: FC = () => {
+const Supplier: FC = () => {
 	const navigate = useNavigate();
 	const location = useLocation();
 
@@ -69,7 +69,7 @@ const About: FC = () => {
 	}, [location, request]);
 
 	if (!data && loading) {
-		return <h4>Loadig Suppliers Data</h4>;
+		return <h4>Loadig Supplier Data</h4>;
 	}
 
 	if (error) {
@@ -94,4 +94,4 @@ const About: FC = () => {
 	);
 };
 
-export default About;
+export default Supplier;

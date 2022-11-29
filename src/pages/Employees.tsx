@@ -75,7 +75,7 @@ const Employees: FC = () => {
 	}, [currentPage, request]);
 
 	if (!data && loading) {
-		return <h4>Loadig Suppliers Data</h4>;
+		return <h4>Loadig Employees Data</h4>;
 	}
 
 	if (error) {
@@ -85,7 +85,7 @@ const Employees: FC = () => {
 	return (
 		<section className="info">
 			<header className="info__header">
-				<h2 className="info__title">Suppliers</h2>
+				<h2 className="info__title">Employees</h2>
 				<svg width="24" height="24">
 					<use xlinkHref="/icons.svg#arrow-right" />
 				</svg>

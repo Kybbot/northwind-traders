@@ -34,7 +34,7 @@ const Dashboard: FC = () => {
 					</div>
 					<div className="dashboard__sql">
 						<h2 className="dashboard__title">SQL Metrics</h2>
-						<p className="dashboard__text">Query count: 0</p>
+						<p className="dashboard__text">Query count: {data.query_count}</p>
 						<p className="dashboard__text">Results count: {data.result_count}</p>
 						<p className="dashboard__text"># SELECT: {data.select}</p>
 						<p className="dashboard__text"># SELECT WHERE: {data.select_where}</p>

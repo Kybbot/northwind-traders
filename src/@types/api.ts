@@ -222,6 +222,7 @@ export type DashboardResponse = {
 			organization_name: string;
 		};
 	};
+	query_count: number;
 	select: number;
 	select_where: number;
 	select_left: number;
