@@ -1,4 +1,9 @@
 .main {
 	padding: 24px;
-	width: 100vw;
+}
+
+@media screen and (max-width: 855px) {
+	.main {
+		width: 100vw;
+	}
 }
