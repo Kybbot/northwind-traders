@@ -1,61 +1,18 @@
 import React, { FC, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 
-import { AboutBlock } from "../components/AboutBlock";
-
 import { useFetch } from "../hooks/useFetch";
 
-import { CustomerType } from "../@types/api";
-import { arrType } from "../@types/arr";
+import { renderIndividualData } from "../utils/renderIndividualData";
 
-const arr: arrType = [
-	{ key: "CompanyName", title: "Company Name", type: "string" },
-	{ key: "PostalCode", title: "Postal Code", type: "string" },
-	{ key: "ContactName", title: "Contact Name", type: "string" },
-	{ key: "Region", title: "Region", type: "string" },
-	{ key: "ContactTitle", title: "Contact Title", type: "string" },
-	{ key: "Country", title: "Country", type: "string" },
-	{ key: "Address", title: "Address", type: "string" },
-	{ key: "Phone", title: "Phone", type: "string" },
-	{ key: "City", title: "City", type: "string" },
-	{ key: "Fax", title: "Fax", type: "string" },
-];
+import { IndividualData } from "../constants";
+import { CustomerType } from "../@types/api";
 
 const Customer: FC = () => {
 	const navigate = useNavigate();
 	const location = useLocation();
 
 	const { loading, error, data, request } = useFetch<CustomerType>();
-
-	const renderData = () => {
-		const info = [];
-
-		for (let i = 0; i < arr.length; i++) {
-			const key = arr[i].key;
-			const title = arr[i].title;
-			const type = arr[i].type;
-
-			if (typeof key !== "object") {
-				if (data && Object.prototype.hasOwnProperty.call(data, key) && (type === "string" || type === "price")) {
-					info.push(<AboutBlock key={i} title={title} text={data[key as keyof typeof data]} type={type} />);
-				}
-			} else {
-				let text = "";
-
-				for (let j = 0; j < key.length; j++) {
-					if (data && Object.prototype.hasOwnProperty.call(data, key[j])) {
-						text += ` ${data[key[j] as keyof typeof data]}`;
-					}
-				}
-
-				if (data && (type === "string" || type === "price")) {
-					info.push(<AboutBlock key={i} title={title} text={text} type={type} />);
-				}
-			}
-		}
-
-		return info;
-	};
 
 	const goBackHandler = () => {
 		navigate(-1);
@@ -85,7 +42,9 @@ const Customer: FC = () => {
 				</svg>
 				<h1 className="about__name">Customer information</h1>
 			</header>
-			<div className="about__container">{renderData()}</div>
+			<div className="about__container">
+				{data && renderIndividualData<CustomerType>({ arr: IndividualData.customer, data })}
+			</div>
 			<footer className="about__footer">
 				<button type="button" className="about__btn" onClick={goBackHandler}>
 					Go back

@@ -2,82 +2,18 @@ import React, { FC, useEffect, useMemo } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { createColumnHelper, flexRender, getCoreRowModel, useReactTable } from "@tanstack/react-table";
 
-import { AboutBlock } from "../components/AboutBlock";
-
 import { useFetch } from "../hooks/useFetch";
 
-import { OneOrderType, OrderProductsType } from "../@types/api";
-import { arrType } from "../@types/arr";
+import { renderIndividualData } from "../utils/renderIndividualData";
 
-const arr: arrType = [
-	{ key: "CustomerID", title: "Customer ID", type: "link" },
-	{ key: "OrderDate", title: "Order Date", type: "date" },
-	{ key: "ShipName", title: "Ship Name", type: "string" },
-	{ key: "RequiredDate", title: "Required Date", type: "date" },
-	{ key: "TotalProducts", title: "Total Products", type: "string" },
-	{ key: "ShippedDate", title: "Shipped Date", type: "date" },
-	{ key: "TotalProductsItems", title: "Total Products Items", type: "string" },
-	{ key: "ShipCity", title: "Ship City", type: "string" },
-	{ key: "TotalProductsPrice", title: "Total Products Price", type: "price" },
-	{ key: "ShipRegion", title: "Ship Region", type: "string" },
-	{ key: "TotalProductsDiscount", title: "Total Products Discount", type: "price" },
-	{ key: "ShipPostalCode", title: "Ship Postal Code", type: "string" },
-	{ key: "ShipVia", title: "Ship Via", type: "string" },
-	{ key: "ShipCountry", title: "Ship Country", type: "string" },
-	{ key: "Freight", title: "Freight", type: "price" },
-];
+import { IndividualData } from "../constants";
+import { OneOrderType, OrderProductsType } from "../@types/api";
 
 const Order: FC = () => {
 	const navigate = useNavigate();
 	const location = useLocation();
 
 	const { loading, error, data, request } = useFetch<OneOrderType>();
-
-	const renderData = () => {
-		const info = [];
-
-		for (let i = 0; i < arr.length; i++) {
-			const key = arr[i].key;
-			const title = arr[i].title;
-			const type = arr[i].type;
-
-			if (typeof key !== "object") {
-				if (
-					data &&
-					Object.prototype.hasOwnProperty.call(data.order, key) &&
-					(type === "string" || type === "price" || type === "date")
-				) {
-					info.push(<AboutBlock key={i} title={title} text={data.order[key as keyof typeof data.order]} type={type} />);
-				}
-
-				if (data && Object.prototype.hasOwnProperty.call(data.order, key) && type === "link") {
-					info.push(
-						<AboutBlock
-							key={i}
-							title={title}
-							text={data.order[key as keyof typeof data.order].toString()}
-							type={type}
-							linkTo={`/customer/${data.order.CustomerID}`}
-						/>
-					);
-				}
-			} else {
-				let text = "";
-
-				for (let j = 0; j < key.length; j++) {
-					if (data && Object.prototype.hasOwnProperty.call(data.order, key[j])) {
-						text += ` ${data.order[key[j] as keyof typeof data.order]}`;
-					}
-				}
-
-				if (data && (type === "string" || type === "price")) {
-					info.push(<AboutBlock key={i} title={title} text={text} type={type} />);
-				}
-			}
-		}
-
-		return info;
-	};
 
 	const columnHelper = createColumnHelper<OrderProductsType>();
 
@@ -159,7 +95,9 @@ const Order: FC = () => {
 				</svg>
 				<h1 className="about__name">Order information</h1>
 			</header>
-			<div className="about__container">{renderData()}</div>
+			<div className="about__container">
+				{data && renderIndividualData<typeof data.order>({ arr: IndividualData.order, data: data.order })}
+			</div>
 			<div className="about__table">
 				<h2 className="about__subname">Products in Order</h2>
 				<div className="about__wrapper">

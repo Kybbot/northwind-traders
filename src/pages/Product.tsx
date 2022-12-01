@@ -1,73 +1,18 @@
 import React, { FC, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 
-import { AboutBlock } from "../components/AboutBlock";
-
 import { useFetch } from "../hooks/useFetch";
 
-import { OneProductType } from "../@types/api";
-import { arrType } from "../@types/arr";
+import { renderIndividualData } from "../utils/renderIndividualData";
 
-const arr: arrType = [
-	{ key: "ProductName", title: "Product Name", type: "string" },
-	{ key: "UnitsInStock", title: "Units In Stock", type: "string" },
-	{ key: "SupplierName", title: "Supplier", type: "link" },
-	{ key: "UnitsOnOrder", title: "Units In Order", type: "string" },
-	{ key: "QuantityPerUnit", title: "Quantity Per Unit", type: "string" },
-	{ key: "ReorderLevel", title: "Reorder Level", type: "string" },
-	{ key: "UnitPrice", title: "Unit Price", type: "price" },
-	{ key: "Discontinued", title: "Discontinued", type: "string" },
-];
+import { IndividualData } from "../constants";
+import { OneProductType } from "../@types/api";
 
 const Product: FC = () => {
 	const navigate = useNavigate();
 	const location = useLocation();
 
 	const { loading, error, data, request } = useFetch<OneProductType>();
-
-	const renderData = () => {
-		const info = [];
-
-		for (let i = 0; i < arr.length; i++) {
-			const key = arr[i].key;
-			const title = arr[i].title;
-			const type = arr[i].type;
-
-			if (typeof key !== "object") {
-				if (data && Object.prototype.hasOwnProperty.call(data, key) && (type === "string" || type === "price")) {
-					info.push(
-						<AboutBlock key={i} title={title} text={data[key as keyof OneProductType].toString()} type={type} />
-					);
-				}
-
-				if (data && Object.prototype.hasOwnProperty.call(data, key) && type === "link") {
-					info.push(
-						<AboutBlock
-							key={i}
-							title={title}
-							text={data[key as keyof OneProductType].toString()}
-							type={type}
-							linkTo={`/supplier/${data.SupplierID}`}
-						/>
-					);
-				}
-			} else {
-				let text = "";
-
-				for (let j = 0; j < key.length; j++) {
-					if (data && Object.prototype.hasOwnProperty.call(data, key[j])) {
-						text += ` ${data[key[j] as keyof typeof data]}`;
-					}
-				}
-
-				if (data && (type === "string" || type === "price")) {
-					info.push(<AboutBlock key={i} title={title} text={text} type={type} />);
-				}
-			}
-		}
-
-		return info;
-	};
 
 	const goBackHandler = () => {
 		navigate(-1);
@@ -97,7 +42,9 @@ const Product: FC = () => {
 				</svg>
 				<h1 className="about__name">Product information</h1>
 			</header>
-			<div className="about__container">{renderData()}</div>
+			<div className="about__container">
+				{data && renderIndividualData<OneProductType>({ arr: IndividualData.product, data })}
+			</div>
 			<footer className="about__footer">
 				<button type="button" className="about__btn" onClick={goBackHandler}>
 					Go back
