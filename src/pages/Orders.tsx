@@ -48,10 +48,17 @@ const Orders: FC = () => {
 				header: () => "Shipped",
 				cell: (info) => {
 					const date = new Date(info.getValue());
+					if (info.getValue() && info.getValue() !== "null") {
+						return `${date.getFullYear()}-${date.getMonth() < 10 ? `0${date.getMonth() + 1}` : date.getMonth() + 1}-${
+							date.getDay() < 10 ? `0${date.getDay() + 1}` : date.getDay() + 1
+						}`;
+					} else {
+						const date = new Date(info.row.original.OrderDate);
 
-					return `${date.getFullYear()}-${date.getMonth() < 10 ? `0${date.getMonth() + 1}` : date.getMonth() + 1}-${
-						date.getDay() < 10 ? `0${date.getDay() + 1}` : date.getDay() + 1
-					}`;
+						return `${date.getFullYear()}-${date.getMonth() < 10 ? `0${date.getMonth() + 1}` : date.getMonth() + 1}-${
+							date.getDay() < 10 ? `0${date.getDay() + 1}` : date.getDay() + 1
+						}`;
+					}
 				},
 			}),
 			columnHelper.accessor("ShipName", {
