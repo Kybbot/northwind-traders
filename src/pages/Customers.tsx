@@ -23,7 +23,7 @@ const Customers: FC = () => {
 				cell: (info) => (
 					<div className="table__avatar">
 						<img
-							src={`https://avatars.dicebear.com/api/initials/${info.getValue()}.svg?radius=50`}
+							src={`https://avatars.dicebear.com/v2/initials/${info.getValue()}.svg?radius=50`}
 							alt={info.getValue()}
 						/>
 					</div>

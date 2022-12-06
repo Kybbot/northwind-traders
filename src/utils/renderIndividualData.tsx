@@ -54,11 +54,11 @@ export function renderIndividualData<T>(props: TestProps<T>) {
 				}
 			}
 
-			if (data && (type === "string" || type === "price" || type === "date")) {
+			if (data && finalText.length && (type === "string" || type === "price" || type === "date")) {
 				info.push(<AboutBlock key={i} title={title} text={finalText} type={type} />);
 			}
 
-			if (data && type === "link" && linkTo && dataId) {
+			if (data && finalText.length && type === "link" && linkTo && dataId) {
 				info.push(
 					<AboutBlock
 						key={i}
