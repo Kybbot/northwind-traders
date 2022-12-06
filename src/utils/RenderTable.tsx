@@ -1,4 +1,5 @@
-import React, { useMemo } from "react";
+import React from "react";
+import { Link } from "react-router-dom";
 import { createColumnHelper, getCoreRowModel, useReactTable } from "@tanstack/react-table";
 
 type RenderTableProps<T> = {
@@ -36,70 +37,61 @@ export function RenderTable<T>(props: RenderTableProps<T>) {
 		const linkTo = arr[i]?.linkTo;
 		const linkId = arr[i]?.linkId;
 
-			if (
-				type === "string"
-			) {
-				result.push(columnHelper.accessor(key, {
-					id,
+		if (type === "string") {
+			result.push(
+				{
+					id: id,
+					accessorKey: key,
 					header: () => header,
-					cell: (info) => info.getValue(),
-				}));
-			}
+				}
+				// columnHelper.accessor("", {
+				// 	id,
+				// 	header: () => header,
+				// 	cell: (info) => info.getValue(),
+				// })
+			);
+		}
 
-			if (data && Object.prototype.hasOwnProperty.call(data, key) && type === "link" && linkTo && linkId) {
-				const text = data[key as keyof typeof data] as string | number;
-				result.push(
+		if (data && Object.prototype.hasOwnProperty.call(data, key) && type === "link" && linkTo && linkId) {
+			const text = data[key as keyof typeof data] as string | number;
+			result.push();
+		}
 
-				);
-			}
-
-
-	const columns = useMemo(
-		() => [
-			columnHelper.accessor("ContactName", {
-				id: "Image",
-				header: () => null,
-				cell: (info) => (
-					<div className="table__avatar">
-						<img
-							src={`https://avatars.dicebear.com/v2/initials/${info.getValue()}.svg?radius=50`}
-							alt={info.getValue()}
-						/>
-					</div>
-				),
-			}),
-			columnHelper.accessor("CompanyName", {
-				header: () => "Company",
-				cell: (info) => (
-					<Link to={`/supplier/${info.row.original.SupplierID}`} className="table__link">
-						{info.getValue()}
-					</Link>
-				),
-			}),
-			columnHelper.accessor("ContactName", {
-				id: "ContactName",
-				header: () => "Contact",
-				cell: (info) => info.getValue(),
-			}),
-			columnHelper.accessor("ContactTitle", {
-				header: () => "Title",
-				cell: (info) => info.getValue(),
-			}),
-			columnHelper.accessor("City", {
-				header: () => "City",
-				cell: (info) => info.getValue(),
-			}),
-			columnHelper.accessor("Country", {
-				header: () => "Country",
-				cell: (info) => info.getValue(),
-			}),
-		],
-		[columnHelper]
-	);
+		// const columns = useMemo(
+		// 	() => [
+		// 		columnHelper.accessor("ContactName", {
+		// 			id: "Image",
+		// 			header: () => null,
+		// 			cell: (info) => (
+		// 				<div className="table__avatar">
+		// 					<img
+		// 						src={`https://avatars.dicebear.com/v2/initials/${info.getValue()}.svg?radius=50`}
+		// 						alt={info.getValue()}
+		// 					/>
+		// 				</div>
+		// 			),
+		// 		}),
+		// 		columnHelper.accessor("CompanyName", {
+		// 			header: () => "Company",
+		// 			cell: (info) => (
+		// 				<Link to={`/supplier/${info.row.original.SupplierID}`} className="table__link">
+		// 					{info.getValue()}
+		// 				</Link>
+		// 			),
+		// 		}),
+		// 		columnHelper.accessor("ContactName", {
+		// 			id: "ContactName",
+		// 			header: () => "Contact",
+		// 			cell: (info) => info.getValue(),
+		// 		}),
+		// 	],
+		// 	[columnHelper]
+		// );
+	}
 
 	const table = useReactTable({
 		data: data ? data : [],
-		columns,
+		columns: result,
 		getCoreRowModel: getCoreRowModel(),
 	});
 }
