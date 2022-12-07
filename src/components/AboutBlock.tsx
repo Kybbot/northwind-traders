@@ -1,5 +1,6 @@
 import React, { FC } from "react";
 import { Link } from "react-router-dom";
+import { formatCurrency } from "../utils/formatCurrency";
 
 import { formatDate } from "../utils/formatDate";
 
@@ -38,15 +39,8 @@ export const AboutBlock: FC<AboutBlockProps> = ({ title, text, type, linkTo }) =
 					</Link>
 				</p>
 			)}
-			{type === "price" && (
-				<p className="about__text">
-					{new Intl.NumberFormat("en-US", {
-						style: "currency",
-						currency: "USD",
-					}).format(+text)}
-				</p>
-			)}
-			{type === "date" && <p className="about__text">{formatDate(String(text))}</p>}
+			{type === "price" && <p className="about__text">{formatCurrency(text)}</p>}
+			{type === "date" && <p className="about__text">{formatDate(text)}</p>}
 		</div>
 	);
 };
