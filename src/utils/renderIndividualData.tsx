@@ -2,14 +2,14 @@ import React from "react";
 
 import { AboutBlock } from "../components/AboutBlock";
 
-import { arrType } from "../@types/arr";
+import { infoType } from "../@types/arr";
 
-type TestProps<T> = {
-	arr: arrType;
+type RenderIndividualDataProps<T> = {
+	arr: infoType;
 	data: T;
 };
 
-export function renderIndividualData<T>(props: TestProps<T>) {
+export function renderIndividualData<T>(props: RenderIndividualDataProps<T>) {
 	const info = [];
 
 	const { arr, data } = props;
