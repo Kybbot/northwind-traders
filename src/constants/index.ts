@@ -1,6 +1,78 @@
-import { arrType } from "../@types/arr";
+import { infoType, tableData } from "../@types/arr";
 
-export const IndividualData: { [key: string]: arrType } = {
+export const TableData: { [key: string]: tableData } = {
+	supplier: [
+		{ key: "ContactName", id: "Image", header: "", type: "img" },
+		{ key: "CompanyName", id: "Company", header: "Company", type: "link", linkTo: "/supplier/", dataId: "SupplierID" },
+		{ key: "ContactName", id: "ContactName", header: "Contact", type: "string" },
+		{ key: "ContactTitle", id: "ContactTitle", header: "Title", type: "string" },
+		{ key: "City", id: "City", header: "City", type: "string" },
+		{ key: "Country", id: "Country", header: "Country", type: "string" },
+	],
+	products: [
+		{ key: "ProductName", id: "ProductName", header: "Name", type: "link", linkTo: "/product/", dataId: "ProductID" },
+		{ key: "QuantityPerUnit", id: "QuantityPerUnit", header: "Qt per unit", type: "string" },
+		{ key: "UnitPrice", id: "UnitPrice", header: "Price", type: "price" },
+		{ key: "UnitsInStock", id: "UnitsInStock", header: "Stock", type: "string" },
+		{ key: "UnitsOnOrder", id: "UnitsOnOrder", header: "Orders", type: "string" },
+	],
+	orders: [
+		{ key: "OrderId", id: "OrderId", header: "Id", type: "link", linkTo: "/order/", dataId: "OrderId" },
+		{ key: "TotalProductsPrice", id: "TotalProductsPrice", header: "Total Price", type: "price" },
+		{ key: "TotalProducts", id: "TotalProducts", header: "Products", type: "string" },
+		{ key: "TotalProductsItems", id: "TotalProductsItems", header: "Quantity", type: "string" },
+		{ key: "ShippedDate", safetyKey: "OrderDate", id: "ShippedDate", header: "Shipped", type: "date" },
+		{ key: "ShipName", id: "ShipName", header: "Ship Name", type: "string" },
+		{ key: "ShipCity", id: "ShipCity", header: "City", type: "string" },
+		{ key: "ShipCountry", id: "ShipCountry", header: "Country", type: "string" },
+	],
+	order: [
+		{
+			key: "ProductName",
+			id: "ProductName",
+			header: "Product",
+			type: "link",
+			linkTo: "/product/",
+			dataId: "ProductID",
+		},
+		{ key: "Quantity", id: "Quantity", header: "Quantity", type: "string" },
+		{ key: "OrderUnitPrice", id: "OrderUnitPrice", header: "Order Price", type: "price" },
+		{ key: "Quantity", id: "MultiplyQuantity", header: "Total Price", type: "price", multiply: "OrderUnitPrice" },
+		{ key: "Discount", id: "Discount", header: "Discount", type: "string" },
+	],
+	employes: [
+		{ key: ["FirstName", "LastName"], id: "Image", header: "", type: "img" },
+		{
+			key: ["FirstName", "LastName"],
+			id: "Name",
+			header: "Name",
+			type: "link",
+			linkTo: "/employee/",
+			dataId: "EmployeeID",
+		},
+		{ key: "Title", id: "Title", header: "Title", type: "string" },
+		{ key: "City", id: "City", header: "City", type: "string" },
+		{ key: "HomePhone", id: "HomePhone", header: "Phone", type: "string" },
+		{ key: "Country", id: "Country", header: "Country", type: "string" },
+	],
+	customers: [
+		{ key: "ContactName", id: "Image", header: "", type: "img" },
+		{
+			key: "CompanyName",
+			id: "CompanyName",
+			header: "Company",
+			type: "link",
+			linkTo: "/customer/",
+			dataId: "CustomerID",
+		},
+		{ key: "ContactName", id: "ContactName", header: "Contact", type: "string" },
+		{ key: "ContactTitle", id: "ContactTitle", header: "Title", type: "string" },
+		{ key: "City", id: "City", header: "City", type: "string" },
+		{ key: "Country", id: "Country", header: "Country", type: "string" },
+	],
+};
+
+export const IndividualData: { [key: string]: infoType } = {
 	supplier: [
 		{ key: "CompanyName", title: "Company Name", type: "string" },
 		{ key: "Region", title: "Region", type: "string" },
