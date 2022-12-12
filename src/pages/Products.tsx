@@ -1,64 +1,18 @@
-import React, { FC, useEffect, useMemo, useState } from "react";
-import { Link } from "react-router-dom";
-import { createColumnHelper, flexRender, getCoreRowModel, useReactTable } from "@tanstack/react-table";
+import React, { FC, useEffect, useState } from "react";
 
 import { Pagination } from "../components/Pagination";
 
 import { useFetch } from "../hooks/useFetch";
 
+import { renderTable } from "../utils/renderTable";
+
+import { TableData } from "../constants";
 import { ProductType, ProsuctsResponse } from "../@types/api";
 
 const Products: FC = () => {
 	const [currentPage, setCurrentPage] = useState<number>(parseInt(location.search?.split("=")[1]) || 1);
 
 	const { loading, error, data, request } = useFetch<ProsuctsResponse>(true);
-
-	const columnHelper = createColumnHelper<ProductType>();
-
-	const columns = useMemo(
-		() => [
-			columnHelper.accessor("ProductName", {
-				header: () => "Name",
-				cell: (info) => (
-					<Link to={`/product/${info.row.original.ProductID}`} className="table__link">
-						{info.getValue()}
-					</Link>
-				),
-			}),
-			columnHelper.accessor("QuantityPerUnit", {
-				header: () => "Qt per unit",
-				cell: (info) => info.getValue(),
-			}),
-			columnHelper.accessor("UnitPrice", {
-				header: () => "Price",
-				cell: (info) => {
-					const price = new Intl.NumberFormat("en-US", {
-						style: "currency",
-						currency: "USD",
-					}).format(+info.getValue());
-
-					return price;
-				},
-			}),
-			columnHelper.accessor("UnitsInStock", {
-				header: () => "Stock",
-				cell: (info) => info.getValue(),
-			}),
-			columnHelper.accessor("UnitsOnOrder", {
-				header: () => "Orders",
-				cell: (info) => info.getValue(),
-			}),
-		],
-		[columnHelper]
-	);
-
-	const table = useReactTable({
-		data: data ? data.products : [],
-		columns,
-		manualPagination: true,
-		pageCount: data ? data.pages : -1,
-		getCoreRowModel: getCoreRowModel(),
-	});
 
 	useEffect(() => {
 		const getSuppliers = async () => {
@@ -86,30 +40,7 @@ const Products: FC = () => {
 			</header>
 			<div className="info__main">
 				<div className="info__wrapper">
-					<table className="table">
-						<thead>
-							{table.getHeaderGroups().map((headerGroup) => (
-								<tr key={headerGroup.id}>
-									{headerGroup.headers.map((header) => (
-										<th key={header.id} className="table__th">
-											{header.isPlaceholder ? null : flexRender(header.column.columnDef.header, header.getContext())}
-										</th>
-									))}
-								</tr>
-							))}
-						</thead>
-						<tbody>
-							{table.getRowModel().rows.map((row) => (
-								<tr key={row.id} className="table__tr">
-									{row.getVisibleCells().map((cell) => (
-										<td key={cell.id} className="table__td">
-											{flexRender(cell.column.columnDef.cell, cell.getContext())}
-										</td>
-									))}
-								</tr>
-							))}
-						</tbody>
-					</table>
+					{data && renderTable<ProductType>({ arr: TableData.products, data: data.products })}
 				</div>
 				{data && (
 					<Pagination
